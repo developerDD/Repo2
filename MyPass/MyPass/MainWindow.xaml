@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyPass"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MyPass" Height="450" Width="800">
     <Window.Resources>
         <Style x:Key="TextBoxStyl">
             <Setter Property="Control.FontSize" Value="18"/>
@@ -19,6 +19,14 @@
             <Setter Property="Control.FontFamily" Value="Verdana" />
             <Setter Property="Control.Height" Value="30"/>
             <Setter Property="Control.Width" Value="190"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Verdana" />
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="FontSize" Value="22"/>
         </Style>
     </Window.Resources>
     <Grid>
