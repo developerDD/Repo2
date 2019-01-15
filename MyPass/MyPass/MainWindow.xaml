@@ -12,6 +12,7 @@
             <Setter Property="Control.Background" Value="Black" />
             <Setter Property="Control.Foreground" Value="White" />
             <Setter Property="Control.FontFamily" Value="Verdana" />
+            <Setter Property="Control.Padding" Value="3"/>
         </Style>
 
         <Style x:Key="TextBoxSty2">
@@ -30,10 +31,7 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        
 
         <StackPanel HorizontalAlignment="Center" Height="81" Margin="48,50,44,0" VerticalAlignment="Top" Width="700"
                     Orientation="Horizontal" Grid.ColumnSpan="2">
@@ -43,13 +41,15 @@
         </StackPanel>
 
 
-        <StackPanel HorizontalAlignment="Center" Height="81" Margin="48,150,44,0" VerticalAlignment="Top" Width="700"
+        <StackPanel HorizontalAlignment="Center" Height="81" Margin="48,130,44,0" VerticalAlignment="Top" Width="700"
                     Orientation="Horizontal" Grid.ColumnSpan="2">
-            <TextBox TextWrapping="Wrap" Text="Write Site" Margin="30 0 0 0" Style="{StaticResource TextBoxSty2}"/>
-            <TextBox TextWrapping="Wrap" Text="Write Login" Margin="30 0 0 0" Style="{StaticResource TextBoxSty2}"/>
+            <TextBox x:Name="TBSite" GotFocus="TBSite_GotFocus" TextWrapping="Wrap" Text="Write Source" Margin="30 0 0 0" 
+                     Style="{StaticResource TextBoxSty2}"/>
+            <TextBox x:Name="TBLogin" GotFocus="TBSite_GotFocus" TextWrapping="Wrap" Text="Write Login" Margin="30 0 0 0" 
+                     Style="{StaticResource TextBoxSty2}"/>
             <PasswordBox Height="30" Width="190" Margin="30 0 0 0"/>
         </StackPanel>
-        <Button Content="Button" HorizontalAlignment="Right" Margin="0,236,342,138" VerticalAlignment="Center" Width="93" Click="Button_Click" Height="45" RenderTransformOrigin="0.532,0.22" Grid.ColumnSpan="2"/>
+        <Button Content="Save" HorizontalAlignment="Right" Margin="0,236,342,138" VerticalAlignment="Center" Width="93" Click="Button_Click" Height="45" RenderTransformOrigin="0.532,0.22" Grid.ColumnSpan="2"/>
 
 
     </Grid>

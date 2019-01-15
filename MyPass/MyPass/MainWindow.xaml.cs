@@ -29,5 +29,24 @@ namespace MyPass
         {
 
         }
+
+        private void TBSite_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox.Text == "Write Source")
+            {
+                textBox.Clear();
+                textBox.Text = "www.";
+            }
+            
+            if (textBox.Text == "Write Login")
+            {
+                textBox.Clear();
+
+            }
+           
+
+        }
+
     }
 }
