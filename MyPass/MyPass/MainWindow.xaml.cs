@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace MyPass
 {
@@ -20,14 +9,54 @@ namespace MyPass
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        Save save = new Save();
+        
         public MainWindow()
         {
             InitializeComponent();
+          
         }
 
+        class Save
+        {
+            public string FileName { get; set; }
+            public Excel.Workbook XLWb { get; set; }
+            public Excel.Worksheet Worksheet { get; set; }
+            public Excel.Application XApp { get; set; }
+            public int NumLastRow { get; set; }
+            
+
+           public Save()
+            {
+                FileName= "D:\\Repo2\\MyPass\\MyPass\\1.xlsx"; //имя Excel файла
+                XApp = new Excel.Application();
+                XLWb = XApp.Workbooks.Open(FileName);           //открываем файл
+                Worksheet = XLWb.Sheets[1];                     //задаем странницу файла (1)
+                //заполняем заголовки столбцов
+                Worksheet.Cells[1, "A"] = "Site";
+                Worksheet.Cells[1, "B"] = "Login";
+                Worksheet.Cells[1, "C"] = "Passwords";
+                NumLastRow = Worksheet.Cells[Worksheet.Rows.Count,"C"].End[Excel.XlDirection.xlUp].Row;
+                
+            }
+
+            
+            ~Save()
+            {
+                XLWb.Close(true);
+                XApp.Quit();
+            }
+
+        }
+         
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            save.NumLastRow++;
+            save.Worksheet.Cells[save.NumLastRow, "A"] = TBSite.Text;
+            save.Worksheet.Cells[save.NumLastRow, "B"] = TBLogin.Text;
+            save.Worksheet.Cells[save.NumLastRow, "C"] = PBPass.Password;
+            MessageBox.Show("Save data!");
         }
 
         private void TBSite_GotFocus(object sender, RoutedEventArgs e)
@@ -44,9 +73,6 @@ namespace MyPass
                 textBox.Clear();
 
             }
-           
-
-        }
-
+         }
     }
 }
