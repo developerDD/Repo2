@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -49,10 +51,9 @@ namespace MyPass
             }
 
         }
-         
-        
+               
 
-
+        //запись данных в файл
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             save.NumLastRow++;
@@ -60,8 +61,9 @@ namespace MyPass
             save.Worksheet.Cells[save.NumLastRow, "B"] = TBLogin.Text;
             save.Worksheet.Cells[save.NumLastRow, "C"] = PBPass.Password;
             MessageBox.Show("Save data!");
+            save.XLWb.Close(true);
         }
-
+        //очистка TextBox 
         private void TBSite_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
@@ -88,7 +90,7 @@ namespace MyPass
                 PBPass.Password += simvol;
             }
         }
-
+        //сложность генератора пароля
         private void RadioButton_Checked_easy(object sender, RoutedEventArgs e)
         {
             Save.Type_pass = 8;
@@ -105,6 +107,19 @@ namespace MyPass
         {
             Save.Type_pass = 16;
             PBPass.Password = "";
+        }
+        //показ базы паролей
+        private void Button_Click_ShowDB(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(save.FileName))
+            {
+                Process.Start(save.FileName);
+            }
+            else
+            {
+                MessageBox.Show("Not file!");
+            }
+            
         }
     }
 }
