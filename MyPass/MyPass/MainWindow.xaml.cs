@@ -17,20 +17,20 @@ namespace MyPass
             InitializeComponent();
           
         }
+       
 
         class Save
         {
-            public string FileName { get; set; }
+            public string FileName;
             public Excel.Workbook XLWb { get; set; }
             public Excel.Worksheet Worksheet { get; set; }
             public Excel.Application XApp { get; set; }
             public int NumLastRow { get; set; }
             public static int Type_pass { get; set; }
-
-
+            
             public Save()
             {
-                FileName= "D:\\Repo2\\MyPass\\MyPass\\1.xlsx"; //имя Excel файла
+                FileName = "D:\\Repo2\\MyPass\\MyPass\\1.xlsx"; //имя Excel файла
                 XApp = new Excel.Application();
                 XLWb = XApp.Workbooks.Open(FileName);           //открываем файл
                 Worksheet = XLWb.Sheets[1];                     //задаем странницу файла (1)
@@ -41,7 +41,6 @@ namespace MyPass
                 NumLastRow = Worksheet.Cells[Worksheet.Rows.Count,"C"].End[Excel.XlDirection.xlUp].Row;
                 Type_pass = 0;
             }
-
             
             ~Save()
             {
@@ -51,6 +50,9 @@ namespace MyPass
 
         }
          
+        
+
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             save.NumLastRow++;
