@@ -25,9 +25,10 @@ namespace MyPass
             public Excel.Worksheet Worksheet { get; set; }
             public Excel.Application XApp { get; set; }
             public int NumLastRow { get; set; }
-            
+            public static int Type_pass { get; set; }
 
-           public Save()
+
+            public Save()
             {
                 FileName= "D:\\Repo2\\MyPass\\MyPass\\1.xlsx"; //имя Excel файла
                 XApp = new Excel.Application();
@@ -38,7 +39,7 @@ namespace MyPass
                 Worksheet.Cells[1, "B"] = "Login";
                 Worksheet.Cells[1, "C"] = "Passwords";
                 NumLastRow = Worksheet.Cells[Worksheet.Rows.Count,"C"].End[Excel.XlDirection.xlUp].Row;
-                
+                Type_pass = 0;
             }
 
             
@@ -74,5 +75,34 @@ namespace MyPass
 
             }
          }
+        //генератор паролей
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            char simvol;
+            System.Random random = new System.Random();
+            for (int i = 0; i < Save.Type_pass; i++)
+            {
+                simvol = (char)random.Next(33, 127);
+                PBPass.Password += simvol;
+            }
+        }
+
+        private void RadioButton_Checked_easy(object sender, RoutedEventArgs e)
+        {
+            Save.Type_pass = 8;
+            PBPass.Password = "";
+        }
+
+        private void RadioButton_Checked_middle(object sender, RoutedEventArgs e)
+        {
+            Save.Type_pass = 12;
+            PBPass.Password = "";
+        }
+
+        private void RadioButton_Checked_heavy(object sender, RoutedEventArgs e)
+        {
+            Save.Type_pass = 16;
+            PBPass.Password = "";
+        }
     }
 }
