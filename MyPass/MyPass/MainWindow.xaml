@@ -9,7 +9,7 @@
     <Window.Resources>
         <Style x:Key="TextBoxStyl">
             <Setter Property="Control.FontSize" Value="18"/>
-            <Setter Property="Control.Background" Value="Black" />
+            <Setter Property="Control.Background" Value="CadetBlue" />
             <Setter Property="Control.Foreground" Value="White" />
             <Setter Property="Control.FontFamily" Value="Verdana" />
             <Setter Property="Control.Padding" Value="3"/>
@@ -24,8 +24,8 @@
 
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Verdana" />
-            <Setter Property="Background" Value="Black" />
-            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="LightGray" />
+            <Setter Property="Foreground" Value="SaddleBrown" />
             <Setter Property="Margin" Value="10" />
             <Setter Property="FontSize" Value="20"/>
         </Style>
@@ -57,6 +57,16 @@
         <RadioButton Checked="RadioButton_Checked_middle" Content="Мiddle password" HorizontalAlignment="Left" Margin="528,324,0,0" VerticalAlignment="Top" Width="155"/>
         <RadioButton Checked="RadioButton_Checked_heavy" Content="Heavy password" HorizontalAlignment="Left" Margin="528,344,0,0" VerticalAlignment="Top" Width="155"/>
         <Button Content="Show DB Pass" HorizontalAlignment="Right" Margin="0,243,548,146" VerticalAlignment="Center" Width="163" Click="Button_Click_ShowDB" Height="30" RenderTransformOrigin="0.532,0.22"/>
-
+        <TextBox 
+            x:Name="SearchSite" 
+            Width="200" Height="30" 
+            Margin="81,324,511,65" 
+            GotFocus="TBSite_GotFocus" 
+            Text="What to find?" 
+            Style="{StaticResource TextBoxSty2}" 
+            
+            
+            />
+        <Button Content="Find" HorizontalAlignment="Right" Margin="0,317,361,57" VerticalAlignment="Center" Width="92" Click="Find" Height="45" RenderTransformOrigin="0.532,0.22"/>
     </Grid>
 </Window>

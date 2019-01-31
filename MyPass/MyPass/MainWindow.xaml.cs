@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Excel = Microsoft.Office.Interop.Excel;
 
+
 namespace MyPass
 {
     /// <summary>
@@ -17,7 +18,7 @@ namespace MyPass
         public MainWindow()
         {
             InitializeComponent();
-          
+                     
         }
        
 
@@ -34,6 +35,7 @@ namespace MyPass
             {
                 FileName = "D:\\Repo2\\MyPass\\MyPass\\1.xlsx"; //имя Excel файла
                 XApp = new Excel.Application();
+                
                 XLWb = XApp.Workbooks.Open(FileName);           //открываем файл
                 Worksheet = XLWb.Sheets[1];                     //задаем странницу файла (1)
                 //заполняем заголовки столбцов
@@ -78,6 +80,12 @@ namespace MyPass
                 textBox.Clear();
 
             }
+            if (textBox.Text == "What to find?")
+            {
+                textBox.Clear();
+
+            }
+            
          }
         //генератор паролей
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -120,6 +128,42 @@ namespace MyPass
                 MessageBox.Show("Not file!");
             }
             
+        }
+
+        private void Find(object sender, RoutedEventArgs e)
+        {
+            string data = SearchSite.Text;
+            string Site = "";
+            string Login = "";
+            string Pas = "";
+            int i = 2;
+            int g = 1;
+            bool flag = false;
+                       
+                while (save.Worksheet.Cells[i, g].Value2!=null)
+                {
+                                
+                    if (save.Worksheet.Cells[i, g].Value2 == data)
+                    {
+                        Site = save.Worksheet.Cells[i, g].Value2;
+                        Login = save.Worksheet.Cells[i, g+1].Value2;
+                        Pas = save.Worksheet.Cells[i, g + 2].Value2;
+
+                        MessageBox.Show("Site " + Site);
+                        MessageBox.Show("Login " + Login);
+                        MessageBox.Show("Pas " + Pas);
+                    flag = true;
+                    break;
+                    }
+                    i++;
+                }
+
+            if (flag!=true)
+            {
+                MessageBox.Show("Not found");
+            }
+            SearchSite.Text = "What to find?";
+
         }
     }
 }
