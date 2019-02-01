@@ -43,14 +43,18 @@
             <TextBox IsReadOnly="True" TextAlignment="Center" Height="30" Width="190" TextWrapping="Wrap" Text="Password" Margin="30 0 0 0" Style="{StaticResource TextBoxStyl}"/>
         </StackPanel>
 
-        <StackPanel HorizontalAlignment="Center" Height="81" Margin="48,130,44,0" VerticalAlignment="Top" Width="700"
-                    Orientation="Horizontal" Grid.ColumnSpan="2">
+        <StackPanel HorizontalAlignment="Center" Height="81" Margin="48,130,75,0" VerticalAlignment="Top" Width="669"
+                    Orientation="Horizontal">
             <TextBox x:Name="TBSite" GotFocus="TBSite_GotFocus" TextWrapping="Wrap" Text="Write Source" Margin="30 0 0 0" 
                      Style="{StaticResource TextBoxSty2}"/>
             <TextBox x:Name="TBLogin" GotFocus="TBSite_GotFocus" TextWrapping="Wrap" Text="Write Login" Margin="30 0 0 0" 
                      Style="{StaticResource TextBoxSty2}"/>
             <PasswordBox x:Name="PBPass"  Height="30" Width="190" Margin="30 0 0 0"/>
         </StackPanel>
+        <TextBlock x:Name="TBShowPass" 
+                   Height="30" Width="190" Margin="518,156,84,233" 
+                   Visibility="Collapsed"
+                   Style="{StaticResource TextBoxSty2}"/>
         <Button Content="Save" HorizontalAlignment="Right" Margin="0,236,361,138" VerticalAlignment="Center" Width="92" Click="Button_Click" Height="45" RenderTransformOrigin="0.532,0.22"/>
         <Button Content="Get Pasword" HorizontalAlignment="Right" Margin="0,236,109,138" VerticalAlignment="Center" Width="155" Click="Button_Click_1" Height="45" RenderTransformOrigin="0.532,0.22"/>
         <RadioButton Checked="RadioButton_Checked_easy"  Content="Easy password" HorizontalAlignment="Left" Margin="528,304,0,0" VerticalAlignment="Top" Width="155"/>
@@ -59,14 +63,16 @@
         <Button Content="Show DB Pass" HorizontalAlignment="Right" Margin="0,243,548,146" VerticalAlignment="Center" Width="163" Click="Button_Click_ShowDB" Height="30" RenderTransformOrigin="0.532,0.22"/>
         <TextBox 
             x:Name="SearchSite" 
-            Width="200" Height="30" 
-            Margin="81,324,511,65" 
+            Width="Auto" Height="Auto" 
+            Margin="81,324,527,57" 
             GotFocus="TBSite_GotFocus" 
             Text="What to find?" 
             Style="{StaticResource TextBoxSty2}" 
-            
-            
-            />
+         />
         <Button Content="Find" HorizontalAlignment="Right" Margin="0,317,361,57" VerticalAlignment="Center" Width="92" Click="Find" Height="45" RenderTransformOrigin="0.532,0.22"/>
+        <CheckBox x:Name="ChekShowPass" IsChecked="False" Content="Show" Margin="722,163,10,220"
+                      Checked="ChekShowPass_Checked"
+                      Unchecked="ChekShowPass_Unchecked"
+             />
     </Grid>
 </Window>

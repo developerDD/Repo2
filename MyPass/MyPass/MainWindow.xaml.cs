@@ -30,25 +30,25 @@ namespace MyPass
             public Excel.Application XApp { get; set; }
             public int NumLastRow { get; set; }
             public static int Type_pass { get; set; }
-            
+           
+
             public Save()
             {
                 FileName = "D:\\Repo2\\MyPass\\MyPass\\1.xlsx"; //имя Excel файла
                 XApp = new Excel.Application();
                 
-                XLWb = XApp.Workbooks.Open(FileName);           //открываем файл
-                Worksheet = XLWb.Sheets[1];                     //задаем странницу файла (1)
+                //XLWb = XApp.Workbooks.Open(FileName);           //открываем файл
+                //Worksheet = XLWb.Sheets[1];                     //задаем странницу файла (1)
                 //заполняем заголовки столбцов
-                Worksheet.Cells[1, "A"] = "Site";
-                Worksheet.Cells[1, "B"] = "Login";
-                Worksheet.Cells[1, "C"] = "Passwords";
-                NumLastRow = Worksheet.Cells[Worksheet.Rows.Count,"C"].End[Excel.XlDirection.xlUp].Row;
+                //Worksheet.Cells[1, "A"] = "Site";
+                //Worksheet.Cells[1, "B"] = "Login";
+                //Worksheet.Cells[1, "C"] = "Passwords";
+                //NumLastRow = Worksheet.Cells[Worksheet.Rows.Count,"C"].End[Excel.XlDirection.xlUp].Row;
                 Type_pass = 0;
             }
             
             ~Save()
             {
-                XLWb.Close(true);
                 XApp.Quit();
             }
 
@@ -58,12 +58,16 @@ namespace MyPass
         //запись данных в файл
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            save.XLWb = save.XApp.Workbooks.Open(save.FileName);
+            save.Worksheet = save.XLWb.Sheets[1];
+            save.NumLastRow = save.Worksheet.Cells[save.Worksheet.Rows.Count, "C"].End[Excel.XlDirection.xlUp].Row;
             save.NumLastRow++;
             save.Worksheet.Cells[save.NumLastRow, "A"] = TBSite.Text;
             save.Worksheet.Cells[save.NumLastRow, "B"] = TBLogin.Text;
             save.Worksheet.Cells[save.NumLastRow, "C"] = PBPass.Password;
             MessageBox.Show("Save data!");
             save.XLWb.Close(true);
+            
         }
         //очистка TextBox 
         private void TBSite_GotFocus(object sender, RoutedEventArgs e)
@@ -132,6 +136,8 @@ namespace MyPass
 
         private void Find(object sender, RoutedEventArgs e)
         {
+            save.XLWb = save.XApp.Workbooks.Open(save.FileName);
+            save.Worksheet = save.XLWb.Sheets[1];
             string data = SearchSite.Text;
             string Site = "";
             string Login = "";
@@ -142,17 +148,16 @@ namespace MyPass
                        
                 while (save.Worksheet.Cells[i, g].Value2!=null)
                 {
-                                
                     if (save.Worksheet.Cells[i, g].Value2 == data)
                     {
                         Site = save.Worksheet.Cells[i, g].Value2;
                         Login = save.Worksheet.Cells[i, g+1].Value2;
                         Pas = save.Worksheet.Cells[i, g + 2].Value2;
 
-                        MessageBox.Show("Site " + Site);
-                        MessageBox.Show("Login " + Login);
-                        MessageBox.Show("Pas " + Pas);
-                    flag = true;
+                        TBSite.Text = Site;
+                        TBLogin.Text = Login;
+                        PBPass.Password = Pas;
+                        flag = true;
                     break;
                     }
                     i++;
@@ -163,7 +168,21 @@ namespace MyPass
                 MessageBox.Show("Not found");
             }
             SearchSite.Text = "What to find?";
+            save.XLWb.Close(true);
 
+        }
+
+        private void ChekShowPass_Checked(object sender, RoutedEventArgs e)
+        {
+            TBShowPass.Text = PBPass.Password;
+            PBPass.Visibility = Visibility.Collapsed;
+            TBShowPass.Visibility = Visibility.Visible;
+        }
+
+        private void ChekShowPass_Unchecked(object sender, RoutedEventArgs e)
+        {
+            TBShowPass.Visibility = Visibility.Collapsed;
+            PBPass.Visibility = Visibility.Visible;
         }
     }
 }
