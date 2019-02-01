@@ -87,7 +87,10 @@ namespace MyPass
             if (textBox.Text == "What to find?")
             {
                 textBox.Clear();
-
+                textBox.Text = "www.";
+                TBSite.Clear();
+                TBLogin.Clear();
+                PBPass.Clear();
             }
             
          }
@@ -172,6 +175,7 @@ namespace MyPass
 
         }
 
+        //показать пароль
         private void ChekShowPass_Checked(object sender, RoutedEventArgs e)
         {
             TBShowPass.Text = PBPass.Password;
