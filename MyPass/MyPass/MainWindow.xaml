@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MyPass"
         mc:Ignorable="d"
         Title="MyPass" Height="350" Width="760" MinHeight="345" MinWidth="759" 
-        MaxHeight="351" MaxWidth="761" Icon=" "> 
+        MaxHeight="351" MaxWidth="761"> 
     <Window.Resources>
         <Style x:Key="TextBoxStyl">
             <Setter Property="Control.FontSize" Value="18"/>
@@ -42,14 +42,14 @@
                 <Setter.Value>
                     <LinearGradientBrush>
                         <LinearGradientBrush.GradientStops>
-                            <GradientStop Color="Red" Offset="0"/>
+                            <GradientStop Color="Chocolate" Offset="0"/>
                             <GradientStop Color="DimGray" Offset="0.5"/>
-                            <GradientStop Color="Black" Offset="1"/>
+                            <GradientStop Color="Blue" Offset="1"/>
                         </LinearGradientBrush.GradientStops>
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
-            <Setter Property="Foreground" Value="DodgerBlue" />
+            <Setter Property="Foreground" Value="Aquamarine"/>
             <Setter Property="Margin" Value="10" />
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="BorderThickness" Value="2"/>
