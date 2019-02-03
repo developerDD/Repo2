@@ -179,7 +179,7 @@ namespace MyPass
         private void ChekShowPass_Checked(object sender, RoutedEventArgs e)
         {
             TBShowPass.Text = PBPass.Password;
-            PBPass.Visibility = Visibility.Collapsed;
+            PBPass.Visibility = Visibility.Hidden;
             TBShowPass.Visibility = Visibility.Visible;
         }
 

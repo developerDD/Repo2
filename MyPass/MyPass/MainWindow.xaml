@@ -5,12 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyPass"
         mc:Ignorable="d"
-        Title="MyPass" Height="465" Width="794">
+        Title="MyPass" Height="350" Width="760" MinHeight="345" MinWidth="759" 
+        MaxHeight="351" MaxWidth="761" Icon=" "> 
     <Window.Resources>
         <Style x:Key="TextBoxStyl">
             <Setter Property="Control.FontSize" Value="18"/>
-            <Setter Property="Control.Background" Value="CadetBlue" />
-            <Setter Property="Control.Foreground" Value="White" />
+            <Setter Property="Control.Background">
+                <Setter.Value>
+                    <LinearGradientBrush >
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Color="Chocolate" Offset="0"/>
+                            <GradientStop Color="DarkBlue" Offset="0.5"/>
+                            <GradientStop Color="Black" Offset="1"/>
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Control.Foreground" Value="Aquamarine" />
             <Setter Property="Control.FontFamily" Value="Verdana" />
             <Setter Property="Control.Padding" Value="3"/>
         </Style>
@@ -20,15 +31,25 @@
             <Setter Property="Control.FontFamily" Value="Verdana" />
             <Setter Property="Control.Height" Value="30"/>
             <Setter Property="Control.Width" Value="190"/>
-            <Setter Property="Control.BorderBrush" Value="BurlyWood"/>
+            <Setter Property="Control.BorderBrush" Value="DarkSlateGray"/>
             <Setter Property="Control.BorderThickness" Value="2"/>
             <Setter Property="Control.VerticalAlignment" Value="Center"/>
         </Style>
 
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Verdana" />
-            <Setter Property="Background" Value="LightGray" />
-            <Setter Property="Foreground" Value="SaddleBrown" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush>
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Color="Red" Offset="0"/>
+                            <GradientStop Color="DimGray" Offset="0.5"/>
+                            <GradientStop Color="Black" Offset="1"/>
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="DodgerBlue" />
             <Setter Property="Margin" Value="10" />
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="BorderThickness" Value="2"/>
@@ -40,45 +61,107 @@
             <Setter Property="Foreground" Value="SaddleBrown" />
         </Style>
     </Window.Resources>
-    <Grid>
-        <StackPanel HorizontalAlignment="Center" Height="50" Margin="14,62,72,0" VerticalAlignment="Top" Width="700"
-                    Orientation="Horizontal">
-            <TextBox IsReadOnly="True" TextAlignment="Center" Height="30" Width="190" TextWrapping="Wrap" Text="NameSource" Margin="30 0 0 0" Style="{StaticResource TextBoxStyl}"/>
-            <TextBox IsReadOnly="True" TextAlignment="Center" Height="30" Width="190" TextWrapping="Wrap" Text="Login" Margin="30 0 0 0" Style="{StaticResource TextBoxStyl}"/>
-            <TextBox IsReadOnly="True" TextAlignment="Center" Height="30" Width="190" TextWrapping="Wrap" Text="Password" Margin="30 0 0 0" Style="{StaticResource TextBoxStyl}"/>
+    <Grid ShowGridLines="False" Background="Gray">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+         </Grid.ColumnDefinitions>
+
+
+        <TextBox IsReadOnly="True" TextAlignment="Center" Height="30" 
+                 Width="190" TextWrapping="Wrap" Text="NameSource"  
+                 Style="{StaticResource TextBoxStyl}"
+                 Grid.Column="0" Grid.Row="0"/>
+        <TextBox IsReadOnly="True" TextAlignment="Center" Height="30" 
+                 Width="190" TextWrapping="Wrap" Text="Login" 
+                 Style="{StaticResource TextBoxStyl}"
+                  Grid.Column="1" Grid.Row="0"/>
+        <TextBox IsReadOnly="True" TextAlignment="Center" Height="30" 
+                 Width="190" TextWrapping="Wrap" Text="Password" 
+                 Style="{StaticResource TextBoxStyl}"
+                  Grid.Column="2" Grid.Row="0"/>
+        <TextBox x:Name="TBSite" GotFocus="TBSite_GotFocus" TextWrapping="Wrap"
+                 Text="Write Source" Style="{StaticResource TextBoxSty2}"
+                  Grid.Column="0" Grid.Row="1"/>
+        <TextBox x:Name="TBLogin" GotFocus="TBSite_GotFocus" TextWrapping="Wrap" 
+                 Text="Write Login" Style="{StaticResource TextBoxSty2}"
+                 Grid.Column="1" Grid.Row="1"/>
+        <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal">
+
+            <PasswordBox x:Name="PBPass"  Height="30" Width="190"  
+                 Style="{StaticResource TextBoxSty2}"
+                 />
+            <CheckBox x:Name="ChekShowPass" IsChecked="False" Content="Show" 
+                 Height="20" 
+                 Checked="ChekShowPass_Checked" 
+                 Unchecked="ChekShowPass_Unchecked" 
+                 Width="50"
+                 Margin="5 0 0 0"
+                 HorizontalAlignment="Right"
+                />
+
         </StackPanel>
 
-        <StackPanel HorizontalAlignment="Center" Height="81" Margin="14,117,103,0" VerticalAlignment="Top" Width="669"
-                    Orientation="Horizontal">
-            <TextBox x:Name="TBSite" GotFocus="TBSite_GotFocus" TextWrapping="Wrap" Text="Write Source" Margin="30 0 0 0" 
-                     Style="{StaticResource TextBoxSty2}"/>
-            <TextBox x:Name="TBLogin" GotFocus="TBSite_GotFocus" TextWrapping="Wrap" Text="Write Login" Margin="30 0 0 0" 
-                     Style="{StaticResource TextBoxSty2}"/>
-            <PasswordBox x:Name="PBPass"  Height="30" Width="190" Margin="30 0 0 0" Style="{StaticResource TextBoxSty2}"/>
-        </StackPanel>
-        <TextBlock x:Name="TBShowPass" 
-                   Height="28" Width="Auto" Margin="486,144,114,262" 
-                   Visibility="Visible"
-                   Style="{StaticResource TextBoxSty2}"
-                   />
-        <Button Content="Save" HorizontalAlignment="Right" Margin="0,236,361,138" VerticalAlignment="Center" Width="92" Click="Button_Click" Height="45" RenderTransformOrigin="0.532,0.22"/>
-        <Button Content="Get Pasword" HorizontalAlignment="Right" Margin="0,236,109,138" VerticalAlignment="Center" Width="155" Click="Button_Click_1" Height="45" RenderTransformOrigin="0.532,0.22"/>
-        <RadioButton Checked="RadioButton_Checked_easy"  Content="Easy password" HorizontalAlignment="Left" Margin="528,304,0,0" VerticalAlignment="Top" Width="155"/>
-        <RadioButton Checked="RadioButton_Checked_middle" Content="Мiddle password" HorizontalAlignment="Left" Margin="528,324,0,0" VerticalAlignment="Top" Width="155"/>
-        <RadioButton Checked="RadioButton_Checked_heavy" Content="Heavy password" HorizontalAlignment="Left" Margin="528,344,0,0" VerticalAlignment="Top" Width="155"/>
-        <Button Content="Show DB Pass" HorizontalAlignment="Right" Margin="0,240,542,142" VerticalAlignment="Center" Width="152" Click="Button_Click_ShowDB" Height="37" RenderTransformOrigin="0.532,0.22"/>
+        <Button Content="Show DB Pass" HorizontalAlignment="Center" 
+                VerticalAlignment="Center" Width="152" Click="Button_Click_ShowDB"
+                Height="37" Grid.Column="0" Grid.Row="2" 
+                ToolTip="Click to show your database entries. "
+                />
+
+        <Button Content="Save" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="92" Click="Button_Click" Height="45"
+                Grid.Column="1" Grid.Row="2" ToolTip="Click to write to the database"
+                />
+
+        <Button Content="Get Pasword" HorizontalAlignment="Center" 
+                VerticalAlignment="Center" Width="155" Click="Button_Click_1" 
+                Height="45"  Grid.Column="2" Grid.Row="2"
+                />
+
         <TextBox 
             x:Name="SearchSite" 
-            Width="Auto" Height="Auto" 
-            Margin="81,324,527,72" 
+            Width="190" Height="Auto" 
             GotFocus="TBSite_GotFocus" 
             Text="What to find?" 
             Style="{StaticResource TextBoxSty2}" 
+            Grid.Column="0" Grid.Row="3"
          />
-        <Button Content="Find" HorizontalAlignment="Right" Margin="0,317,361,57" VerticalAlignment="Center" Width="92" Click="Find" Height="45" RenderTransformOrigin="0.532,0.22"/>
-        <CheckBox x:Name="ChekShowPass" IsChecked="False" Content="Show" Margin="688,151,44,262"
-                      Checked="ChekShowPass_Checked"
-                      Unchecked="ChekShowPass_Unchecked" RenderTransformOrigin="0.889,0.824"
-             />
+
+        <Button Content="Find" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Width="92" Click="Find" 
+                    Height="45" 
+                    Grid.Column="1" Grid.Row="3"
+        />
+
+        <TextBox x:Name="TBShowPass" 
+                   Height="30" Width="190"  
+                   HorizontalAlignment="Left"
+                 VerticalAlignment="Center"
+                    Visibility="Hidden"
+                   Style="{StaticResource TextBoxSty2}"
+                 Grid.Column="2" Grid.Row="1"
+                   />
+        <StackPanel Grid.Column="2" Grid.Row="3" ToolTip="Set password complexity" >
+            <RadioButton Checked="RadioButton_Checked_easy" 
+                         Content="Easy password" HorizontalAlignment="Center" 
+                         Width="155" />
+            <RadioButton Checked="RadioButton_Checked_middle" 
+                         Content="Мiddle password" HorizontalAlignment="Center" 
+                         Width="155" />
+            <RadioButton Checked="RadioButton_Checked_heavy" Content="Heavy password"
+                         HorizontalAlignment="Center" Width="155" />
+        </StackPanel>
+
+
     </Grid>
 </Window>
