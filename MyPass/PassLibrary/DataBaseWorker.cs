@@ -11,12 +11,12 @@ namespace PassLibrary
     {
         public static string connectString;
         static SqlConnection sqlConnection;
-        static string serverName = "localhost";
-        static string nameDataBase = "DatabaseMyPass";
+        static readonly string serverName = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Repo2\MyPass\MyPass\DatabaseMyPass.mdf;Integrated Security=True";
+        static readonly string nameDataBase = ".\\DatabaseMyPass";
 
         public static void Conection()
         {
-            connectString = "Data Source=localhost" + ";Initial Catalog=" + nameDataBase + ";Integrated Security=true;";
+            connectString = serverName;
 
             sqlConnection = new SqlConnection(connectString);
 
@@ -98,11 +98,14 @@ namespace PassLibrary
             SqlCommand command = new SqlCommand(query, sqlConnection);
             command.ExecuteNonQuery();
         }
+               
 
         public static void CloseConection()
         {
             sqlConnection.Close();
         }
+
+     
     }
 
 }

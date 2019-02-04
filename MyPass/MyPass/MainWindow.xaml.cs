@@ -4,6 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using Excel = Microsoft.Office.Interop.Excel;
 using PassLibrary;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System;
 
 namespace MyPass
 {
@@ -12,8 +15,8 @@ namespace MyPass
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        Save save = new Save();
+        //работа с Excel
+        //Save save = new Save();
         
         public MainWindow()
         {
@@ -24,18 +27,19 @@ namespace MyPass
 
         class Save
         {
-            public string FileName;
-            public Excel.Workbook XLWb { get; set; }
-            public Excel.Worksheet Worksheet { get; set; }
-            public Excel.Application XApp { get; set; }
-            public int NumLastRow { get; set; }
+            //работа с Excel
+            //public string FileName;
+            //public Excel.Workbook XLWb { get; set; }
+            //public Excel.Worksheet Worksheet { get; set; }
+            //public Excel.Application XApp { get; set; }
+            //public int NumLastRow { get; set; }
             public static int Type_pass { get; set; }
            
 
             public Save()
             {
-                FileName = "D:\\Repo2\\MyPass\\MyPass\\1.xlsx"; //имя Excel файла
-                XApp = new Excel.Application();
+                //FileName = "D:\\Repo2\\MyPass\\MyPass\\1.xlsx"; //имя Excel файла
+                //XApp = new Excel.Application();
                 
                 //XLWb = XApp.Workbooks.Open(FileName);           //открываем файл
                 //Worksheet = XLWb.Sheets[1];                     //задаем странницу файла (1)
@@ -49,25 +53,36 @@ namespace MyPass
             
             ~Save()
             {
-                XApp.Quit();
+                //XApp.Quit();
             }
 
         }
-               
+
 
         //запись данных в файл
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            save.XLWb = save.XApp.Workbooks.Open(save.FileName);
-            save.Worksheet = save.XLWb.Sheets[1];
-            save.NumLastRow = save.Worksheet.Cells[save.Worksheet.Rows.Count, "C"].End[Excel.XlDirection.xlUp].Row;
-            save.NumLastRow++;
-            save.Worksheet.Cells[save.NumLastRow, "A"] = TBSite.Text;
-            save.Worksheet.Cells[save.NumLastRow, "B"] = TBLogin.Text;
-            save.Worksheet.Cells[save.NumLastRow, "C"] = PBPass.Password;
-            MessageBox.Show("Save data!");
-            save.XLWb.Close(true);
-            
+            //работа с Excel
+            //save.XLWb = save.XApp.Workbooks.Open(save.FileName);
+            //save.Worksheet = save.XLWb.Sheets[1];
+            //save.NumLastRow = save.Worksheet.Cells[save.Worksheet.Rows.Count, "C"].End[Excel.XlDirection.xlUp].Row;
+            //save.NumLastRow++;
+            //save.Worksheet.Cells[save.NumLastRow, "A"] = TBSite.Text;
+            //save.Worksheet.Cells[save.NumLastRow, "B"] = TBLogin.Text;
+            //save.Worksheet.Cells[save.NumLastRow, "C"] = PBPass.Password;
+
+            //MessageBox.Show("Save data!");
+            //save.XLWb.Close(true);
+
+            // для удаления из базы данных DataBaseWorker.QueryWithoutResponse("DELETE FROM [DBPass] WHERE id=1");
+            DataBaseWorker.Conection();
+            string site = TBSite.Text;
+            string log = TBLogin.Text;
+            string pas = PBPass.Password;
+            string sqlExpression = String.Format("INSERT INTO DBPass(LoginSite,Login,Password) VALUES ('{0}', '{1}','{2}')", site, log,pas);
+            DataBaseWorker.QueryWithoutResponse(sqlExpression);
+            DataBaseWorker.CloseConection();
+
         }
         //очистка TextBox 
         private void TBSite_GotFocus(object sender, RoutedEventArgs e)
@@ -126,6 +141,7 @@ namespace MyPass
         //показ базы паролей
         private void Button_Click_ShowDB(object sender, RoutedEventArgs e)
         {
+            //работа с Excel
             //if (File.Exists(save.FileName))
             //{
             //    Process.Start(save.FileName);
@@ -136,46 +152,58 @@ namespace MyPass
             //}
 
             DataBaseWorker.Conection();
-            string mas = DataBaseWorker.GetData("SELECT Login FROM DBPass WHERE Password = 12345");
-            MessageBox.Show(mas);
+            List<string[]>mas = DataBaseWorker.GetData("SELECT * FROM DBPass",4);
+            if (mas!=null)
+            {
+                foreach (var item in mas)
+                {
+                    MessageBox.Show(item[1] + item[2] + item[3]);
+                }
+            }
+            else
+            {
+                MessageBox.Show("DataBase is empty!");
+            }
+            
             DataBaseWorker.CloseConection();
         }
 
         private void Find(object sender, RoutedEventArgs e)
         {
-            save.XLWb = save.XApp.Workbooks.Open(save.FileName);
-            save.Worksheet = save.XLWb.Sheets[1];
-            string data = SearchSite.Text;
-            string Site = "";
-            string Login = "";
-            string Pas = "";
-            int i = 2;
-            int g = 1;
-            bool flag = false;
+            //работа с Excel
+            //save.XLWb = save.XApp.Workbooks.Open(save.FileName);
+            //save.Worksheet = save.XLWb.Sheets[1];
+            //string data = SearchSite.Text;
+            //string Site = "";
+            //string Login = "";
+            //string Pas = "";
+            //int i = 2;
+            //int g = 1;
+            //bool flag = false;
                        
-                while (save.Worksheet.Cells[i, g].Value2!=null)
-                {
-                    if (save.Worksheet.Cells[i, g].Value2 == data)
-                    {
-                        Site = save.Worksheet.Cells[i, g].Value2;
-                        Login = save.Worksheet.Cells[i, g+1].Value2;
-                        Pas = save.Worksheet.Cells[i, g + 2].Value2;
+            //    while (save.Worksheet.Cells[i, g].Value2!=null)
+            //    {
+            //        if (save.Worksheet.Cells[i, g].Value2 == data)
+            //        {
+            //            Site = save.Worksheet.Cells[i, g].Value2;
+            //            Login = save.Worksheet.Cells[i, g+1].Value2;
+            //            Pas = save.Worksheet.Cells[i, g + 2].Value2;
 
-                        TBSite.Text = Site;
-                        TBLogin.Text = Login;
-                        PBPass.Password = Pas;
-                        flag = true;
-                    break;
-                    }
-                    i++;
-                }
+            //            TBSite.Text = Site;
+            //            TBLogin.Text = Login;
+            //            PBPass.Password = Pas;
+            //            flag = true;
+            //        break;
+            //        }
+            //        i++;
+            //    }
 
-            if (flag!=true)
-            {
-                MessageBox.Show("Not found");
-            }
-            SearchSite.Text = "What to find?";
-            save.XLWb.Close(true);
+            //if (flag!=true)
+            //{
+            //    MessageBox.Show("Not found");
+            //}
+            //SearchSite.Text = "What to find?";
+            //save.XLWb.Close(true);
 
         }
 
