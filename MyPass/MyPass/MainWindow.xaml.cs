@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Excel = Microsoft.Office.Interop.Excel;
-
+using PassLibrary;
 
 namespace MyPass
 {
@@ -126,15 +126,19 @@ namespace MyPass
         //показ базы паролей
         private void Button_Click_ShowDB(object sender, RoutedEventArgs e)
         {
-            if (File.Exists(save.FileName))
-            {
-                Process.Start(save.FileName);
-            }
-            else
-            {
-                MessageBox.Show("Not file!");
-            }
-            
+            //if (File.Exists(save.FileName))
+            //{
+            //    Process.Start(save.FileName);
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Not file!");
+            //}
+
+            DataBaseWorker.Conection();
+            string mas = DataBaseWorker.GetData("SELECT Login FROM DBPass WHERE Password = 12345");
+            MessageBox.Show(mas);
+            DataBaseWorker.CloseConection();
         }
 
         private void Find(object sender, RoutedEventArgs e)
