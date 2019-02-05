@@ -7,6 +7,7 @@ using PassLibrary;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System;
+using System.Windows.Data;
 
 namespace MyPass
 {
@@ -17,7 +18,15 @@ namespace MyPass
     {
         //работа с Excel
         //Save save = new Save();
-        
+       public struct Info
+        {
+            public string a { get; set; }
+            public string b { get; set; }
+            public string v{ get; set; }
+
+
+};
+
         public MainWindow()
         {
             InitializeComponent();
@@ -79,9 +88,12 @@ namespace MyPass
             string site = TBSite.Text;
             string log = TBLogin.Text;
             string pas = PBPass.Password;
-            string sqlExpression = String.Format("INSERT INTO DBPass(LoginSite,Login,Password) VALUES ('{0}', '{1}','{2}')", site, log,pas);
+            string sqlExpression = String.Format("INSERT INTO DBPass(LoginSite,Login,Password) VALUES ('{0}', '{1}','{2}')", site,log,pas);
             DataBaseWorker.QueryWithoutResponse(sqlExpression);
             DataBaseWorker.CloseConection();
+            TBSite.Clear();
+            TBLogin.Clear();
+            PBPass.Clear();
 
         }
         //очистка TextBox 
@@ -153,18 +165,26 @@ namespace MyPass
 
             DataBaseWorker.Conection();
             List<string[]>mas = DataBaseWorker.GetData("SELECT * FROM DBPass",4);
-            if (mas!=null)
+
+            Info info = new Info();
+           
+            if (mas != null)
             {
                 foreach (var item in mas)
                 {
-                    MessageBox.Show(item[1] + item[2] + item[3]);
+
+                    info.a = item[1];
+                    info.b = item[2];
+                    info.v = item[3];
+                    
+                    listDB.Items.Add(info);
                 }
             }
             else
             {
                 MessageBox.Show("DataBase is empty!");
             }
-            
+            Grid_ListView.Visibility = Visibility.Visible;
             DataBaseWorker.CloseConection();
         }
 
@@ -219,6 +239,11 @@ namespace MyPass
         {
             TBShowPass.Visibility = Visibility.Collapsed;
             PBPass.Visibility = Visibility.Visible;
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Grid_ListView.Visibility = Visibility.Hidden;
         }
     }
 }

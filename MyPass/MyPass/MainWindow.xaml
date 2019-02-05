@@ -8,6 +8,7 @@
         Title="MyPass" Height="350" Width="760" MinHeight="345" MinWidth="759" 
         MaxHeight="351" MaxWidth="761"> 
     <Window.Resources>
+        
         <Style x:Key="TextBoxStyl">
             <Setter Property="Control.FontSize" Value="18"/>
             <Setter Property="Control.Background">
@@ -162,6 +163,20 @@
                          HorizontalAlignment="Center" Width="155" />
         </StackPanel>
 
+        <Grid x:Name="Grid_ListView" Grid.ColumnSpan="3" Grid.RowSpan="4" Background="Azure" Visibility="Hidden">
+            <ListView x:Name="listDB" >
+                <ListView.View>
+                    <GridView >
+                        <GridView.Columns>
+                            <GridViewColumn Header="Website address" Width="249" DisplayMemberBinding="{Binding a}"/>
+                            <GridViewColumn Header="Login" Width="249" DisplayMemberBinding="{Binding b}"/>
+                            <GridViewColumn Header="Password" Width="239" DisplayMemberBinding="{Binding v}"/>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button Content="Close" Click="Button_Click_2" Height="auto" Width="auto" Margin="682,279,0,0"/>
+        </Grid>
 
     </Grid>
 </Window>
