@@ -50,11 +50,15 @@
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
-            <Setter Property="Foreground" Value="Aquamarine"/>
+            <Setter Property="Foreground" Value="DarkBlue"/>
             <Setter Property="Margin" Value="10" />
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="BorderThickness" Value="2"/>
+           
         </Style>
+        
+
+       
 
         <Style TargetType="RadioButton">
             <Setter Property="Control.FontSize" Value="14"/>
@@ -62,7 +66,7 @@
             <Setter Property="Foreground" Value="SaddleBrown" />
         </Style>
     </Window.Resources>
-    <Grid ShowGridLines="False" Background="Gray">
+    <Grid ShowGridLines="False" Background="Gray" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -119,7 +123,7 @@
             <Button Content="Delete DataBase" HorizontalAlignment="Center" 
                 Width="auto" Click="Button_Click_3"
                 Height="auto" 
-                ToolTip="Click to delete your database/"
+                ToolTip="Click to delete your database."
                 Margin="0,0,0,0"
                 />
         </StackPanel> 
@@ -131,7 +135,8 @@
                 />
 
         <Button Content="Get Pasword" HorizontalAlignment="Center" 
-                VerticalAlignment="Center" Width="155" Click="Button_Click_1" 
+                VerticalAlignment="Center" Width="155" Click="Button_Click_1"
+                ToolTip="Select password complexity and click."
                 Height="45"  Grid.Column="2" Grid.Row="2"
                 />
 
@@ -149,6 +154,7 @@
                     VerticalAlignment="Center"
                     Width="92" Click="Find" 
                     Height="45" 
+                 ToolTip="Search by site address database."
                     Grid.Column="1" Grid.Row="3"
         />
 

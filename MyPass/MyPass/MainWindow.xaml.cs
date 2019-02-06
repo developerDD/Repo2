@@ -267,10 +267,11 @@ namespace MyPass
             //очищаем лист))
             listDB.Items.Clear();
         }
-
+        //очистить базу данных
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result;
+                    
             result = MessageBox.Show("Delete DataBase?", "Attantion", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result==MessageBoxResult.Yes)
             {
