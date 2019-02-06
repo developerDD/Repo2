@@ -33,7 +33,6 @@ namespace MyPass
                      
         }
        
-
         class Save
         {
             //работа с Excel
@@ -67,8 +66,8 @@ namespace MyPass
 
         }
 
-
         //запись данных в файл
+        //запись в базу данных
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //работа с Excel
@@ -88,13 +87,22 @@ namespace MyPass
             string site = TBSite.Text;
             string log = TBLogin.Text;
             string pas = PBPass.Password;
-            string sqlExpression = String.Format("INSERT INTO DBPass(LoginSite,Login,Password) VALUES ('{0}', '{1}','{2}')", site,log,pas);
-            DataBaseWorker.QueryWithoutResponse(sqlExpression);
-            DataBaseWorker.CloseConection();
-            TBSite.Text = "Write Source";
-            TBLogin.Text = "Write Login";
-            PBPass.Clear();
+            if (site!= "Write Source"&&log!= "Write Login"&& log != "")
+            {
+                string sqlExpression = String.Format("INSERT INTO DBPass(LoginSite,Login,Password) VALUES ('{0}', '{1}','{2}')", site, log, pas);
+                DataBaseWorker.QueryWithoutResponse(sqlExpression);
+                DataBaseWorker.CloseConection();
+                TBSite.Text = "Write Source";
+                TBLogin.Text = "Write Login";
+                PBPass.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Specify data to write", "Attantion", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
+
+           
         }
         //очистка TextBox 
         private void TBSite_GotFocus(object sender, RoutedEventArgs e)
@@ -104,8 +112,8 @@ namespace MyPass
             {
                 textBox.Clear();
                 textBox.Text = "www.";
+                SearchSite.Text = "What to find?";
             }
-            
             if (textBox.Text == "Write Login")
             {
                 textBox.Clear();
@@ -115,22 +123,34 @@ namespace MyPass
             {
                 textBox.Clear();
                 textBox.Text = "www.";
-                //TBSite.Clear();
-                //TBLogin.Clear();
-                //PBPass.Clear();
+                TBSite.Text = "Write Source";
+                TBLogin.Text = "Write Login";
+                PBPass.Clear();
             }
-            
          }
         //генератор паролей
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            char simvol;
-            System.Random random = new System.Random();
-            for (int i = 0; i < Save.Type_pass; i++)
+            if (Save.Type_pass != 0)
             {
-                simvol = (char)random.Next(33, 127);
-                PBPass.Password += simvol;
+                char simvol;
+                System.Random random = new System.Random();
+                for (int i = 0; i < Save.Type_pass; i++)
+                {
+                    simvol = (char)random.Next(33, 127);
+                    PBPass.Password += simvol;
+                }
+                Save.Type_pass = 0;
             }
+            else if (PBPass.Password != "" && Save.Type_pass == 0)
+            {
+                MessageBox.Show("Pass is set", "Attantion", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Pass not set", "Attantion", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+           
         }
         //сложность генератора пароля
         private void RadioButton_Checked_easy(object sender, RoutedEventArgs e)
@@ -179,15 +199,15 @@ namespace MyPass
                     
                     listDB.Items.Add(info);
                 }
+                Grid_ListView.Visibility = Visibility.Visible;
             }
             else
             {
                 MessageBox.Show("DataBase is empty!");
             }
-            Grid_ListView.Visibility = Visibility.Visible;
             DataBaseWorker.CloseConection();
         }
-
+        // поиск сайта по базе
         private void Find(object sender, RoutedEventArgs e)
         {
             //работа с Excel
@@ -241,7 +261,7 @@ namespace MyPass
             }
             if (flag==false)
             {
-                MessageBox.Show("Not found");
+                MessageBox.Show("Not found", "Attantion",MessageBoxButton.OK,MessageBoxImage.Error);
             }
             DataBaseWorker.CloseConection();
 
@@ -282,6 +302,32 @@ namespace MyPass
             }
            
             
+        }
+        // открыть найденый адрес в браузере
+        private void StartBroweser(object sender, RoutedEventArgs e)
+        {
+            if (TBSite.Text!="www."&& TBSite.Text!=null&& TBSite.Text != "Write Source")
+            {
+               
+
+                Process.Start(TBSite.Text);
+                TBSite.Text = "Write Source";
+                TBLogin.Text = "Write Login";
+                SearchSite.Text = "What to find?";
+                PBPass.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Site address is not specified", "Attantion",MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void PBPass_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender.Equals(PBPass))
+            {
+                SearchSite.Text = "What to find?";
+            }
         }
     }
 }

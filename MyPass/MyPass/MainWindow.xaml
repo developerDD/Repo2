@@ -101,7 +101,7 @@
                  Grid.Column="1" Grid.Row="1"/>
         <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal">
 
-            <PasswordBox x:Name="PBPass"  Height="30" Width="190"  
+            <PasswordBox x:Name="PBPass"  Height="30" Width="190" GotFocus="PBPass_GotFocus" 
                  Style="{StaticResource TextBoxSty2}"
                  />
             <CheckBox x:Name="ChekShowPass" IsChecked="False" Content="Show" 
@@ -149,14 +149,23 @@
             Grid.Column="0" Grid.Row="3"
          />
 
-        <Button Content="Find" 
+        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Find" 
                     HorizontalAlignment="Center" 
                     VerticalAlignment="Center"
                     Width="92" Click="Find" 
                     Height="45" 
-                 ToolTip="Search by site address database."
-                    Grid.Column="1" Grid.Row="3"
+                 ToolTip="Search by site address database."                    
         />
+            <Button Content="Open" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Width="92" Click="StartBroweser" 
+                    Height="45" 
+                 ToolTip="Open the found site in the browser."                    
+        />
+        </StackPanel>
+        
 
         <TextBox x:Name="TBShowPass" 
                    Height="30" Width="190"  
@@ -166,7 +175,7 @@
                    Style="{StaticResource TextBoxSty2}"
                  Grid.Column="2" Grid.Row="1"
                    />
-        <StackPanel Grid.Column="2" Grid.Row="3" ToolTip="Set password complexity" >
+        <StackPanel Grid.Column="2" Grid.Row="3" ToolTip="Set password complexity" VerticalAlignment="Center" >
             <RadioButton Checked="RadioButton_Checked_easy" 
                          Content="Easy password" HorizontalAlignment="Center" 
                          Width="155" />
