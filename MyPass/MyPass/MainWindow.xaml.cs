@@ -91,8 +91,8 @@ namespace MyPass
             string sqlExpression = String.Format("INSERT INTO DBPass(LoginSite,Login,Password) VALUES ('{0}', '{1}','{2}')", site,log,pas);
             DataBaseWorker.QueryWithoutResponse(sqlExpression);
             DataBaseWorker.CloseConection();
-            TBSite.Clear();
-            TBLogin.Clear();
+            TBSite.Text = "Write Source";
+            TBLogin.Text = "Write Login";
             PBPass.Clear();
 
         }
@@ -115,9 +115,9 @@ namespace MyPass
             {
                 textBox.Clear();
                 textBox.Text = "www.";
-                TBSite.Clear();
-                TBLogin.Clear();
-                PBPass.Clear();
+                //TBSite.Clear();
+                //TBLogin.Clear();
+                //PBPass.Clear();
             }
             
          }
@@ -200,7 +200,7 @@ namespace MyPass
             //int i = 2;
             //int g = 1;
             //bool flag = false;
-                       
+
             //    while (save.Worksheet.Cells[i, g].Value2!=null)
             //    {
             //        if (save.Worksheet.Cells[i, g].Value2 == data)
@@ -225,6 +225,26 @@ namespace MyPass
             //SearchSite.Text = "What to find?";
             //save.XLWb.Close(true);
 
+            DataBaseWorker.Conection();
+            List<string[]> mas = DataBaseWorker.GetData("SELECT * FROM DBPass", 4);
+            bool flag = false;
+            foreach (var item in mas)
+            {
+                if (item[1]==SearchSite.Text)
+                {
+                    TBSite.Text = item[1];
+                    TBLogin.Text = item[2];
+                    PBPass.Password = item[3];
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag==false)
+            {
+                MessageBox.Show("Not found");
+            }
+            DataBaseWorker.CloseConection();
+
         }
 
         //показать пароль
@@ -240,10 +260,27 @@ namespace MyPass
             TBShowPass.Visibility = Visibility.Collapsed;
             PBPass.Visibility = Visibility.Visible;
         }
-
+        //закрытие listview
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             Grid_ListView.Visibility = Visibility.Hidden;
+            //очищаем лист))
+            listDB.Items.Clear();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result;
+            result = MessageBox.Show("Delete DataBase?", "Attantion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result==MessageBoxResult.Yes)
+            {
+                DataBaseWorker.Conection();
+                string qury = "TRUNCATE TABLE DBPass";
+                DataBaseWorker.QueryWithoutResponse(qury);
+                DataBaseWorker.CloseConection();
+            }
+           
+            
         }
     }
 }

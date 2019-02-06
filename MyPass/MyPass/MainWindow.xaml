@@ -110,12 +110,20 @@
                 />
 
         </StackPanel>
-
-        <Button Content="Show DB Pass" HorizontalAlignment="Center" 
-                VerticalAlignment="Center" Width="152" Click="Button_Click_ShowDB"
-                Height="37" Grid.Column="0" Grid.Row="2" 
+        <StackPanel Grid.Column="0" Grid.Row="2">
+            <Button Content="Show DataBase" HorizontalAlignment="Center" 
+                 Width="auto" Click="Button_Click_ShowDB"
+                Height="auto" 
                 ToolTip="Click to show your database entries. "
                 />
+            <Button Content="Delete DataBase" HorizontalAlignment="Center" 
+                Width="auto" Click="Button_Click_3"
+                Height="auto" 
+                ToolTip="Click to delete your database/"
+                Margin="0,0,0,0"
+                />
+        </StackPanel> 
+       
 
         <Button Content="Save" HorizontalAlignment="Center" VerticalAlignment="Center"
                 Width="92" Click="Button_Click" Height="45"
@@ -175,7 +183,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button Content="Close" Click="Button_Click_2" Height="auto" Width="auto" Margin="682,279,0,0"/>
+            <Button Content="Close" Click="Button_Click_2" Height="auto" Width="auto" Margin="672,250,10,29" RenderTransformOrigin="0.314,0.038"/>
         </Grid>
 
     </Grid>
