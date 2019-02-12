@@ -7,7 +7,7 @@ namespace MyPhotoshop
 		public readonly int width;
 
         public readonly int height;
-		public readonly Pixel [,] data;
+		private readonly Pixel [,] data;
 
         public Photo(int valWidth, int valHeight)
         {
@@ -21,6 +21,12 @@ namespace MyPhotoshop
                     data[i, j] = new Pixel();
                 }
             }
+        }
+
+        public Pixel this [int x, int y]
+        {
+            get { return data[x, y]; }
+            set { data[x, y] = value; }
         }
 	}
 }
