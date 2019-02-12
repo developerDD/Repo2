@@ -20,15 +20,19 @@ namespace MyPhotoshop
 		
 		public Photo Process(Photo original, double[] parameters)
 		{
-			var result=new Photo();
-			result.width=original.width;
-			result.height=original.height;
-			result.data=new double[result.width,result.height,3];
+			var result=new Photo(original.width,original.height);
+			//result.width=original.width;
+			//result.height=original.height;
+			//result.data=new Pixel[result.width,result.height];
 			
 			for (int x=0;x<result.width;x++)
 				for (int y=0;y<result.height;y++)
-					for (int z=0;z<3;z++)
-						result.data[x,y,z]=original.data[x,y,z]*parameters[0];
+                {
+                 result.data[x, y].Red = Pixel.Trim(original.data[x, y].Red * parameters[0]);
+                 result.data[x, y].Blue = Pixel.Trim(original.data[x, y].Blue * parameters[0]);
+                 result.data[x, y].Green = Pixel.Trim(original.data[x, y].Green * parameters[0]);
+                }
+						
 			return result;
 		}
 	}
